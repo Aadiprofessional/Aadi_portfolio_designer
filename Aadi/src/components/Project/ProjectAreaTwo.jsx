@@ -1,0 +1,145 @@
+import React, { useState } from "react";
+import ProjectAreaTwoItem from "./ProjectAreaTwoItem";
+import cn from "classnames";
+
+const ProjectAreaTwo = () => {
+  const project_items = [
+    {
+      url: "/project-details",
+      src: "/img/project/h2_project_img01.jpg",
+      title: "Web3-Based Marketplace Development",
+      desc: "Crafting innovative Web3-based marketplaces, redefining user experiences and engagement.",
+      className: "cat-three cat-two",
+    },
+    {
+      url: "/project-details",
+      src: "/img/project/h2_project_img02.jpg",
+      title: "NFT Platform Design",
+      desc: "Designing intuitive NFT platforms for seamless digital asset trading.",
+      className: "cat-four cat-five",
+    },
+    {
+      url: "/project-details",
+      src: "/img/project/h2_project_img03.jpg",
+      title: "Decentralized Finance (DeFi) App",
+      desc: "Developing DeFi applications for secure and transparent financial transactions.",
+      className: "cat-two cat-one",
+    },
+    {
+      url: "/project-details",
+      src: "/img/project/h2_project_img04.jpg",
+      title: "Cryptocurrency Exchange UI/UX",
+      desc: "Creating user-friendly interfaces for cryptocurrency exchanges.",
+      className: "cat-four cat-five",
+    },
+    {
+      url: "/project-details",
+      src: "/img/project/h2_project_img05.jpg",
+      title: "Blockchain-Based Voting System",
+      desc: "Implementing blockchain technology for secure and transparent voting systems.",
+      className: "cat-one cat-five",
+    },
+    {
+      url: "/project-details",
+      src: "/img/project/h2_project_img06.jpg",
+      title: "Smart Contract Development",
+      desc: "Building smart contracts for various blockchain applications.",
+      className: "cat-two cat-five",
+    },
+  ];
+
+  const filters = [
+    {
+      filter: "*",
+      label: "View All",
+    },
+    {
+      filter: "cat-one",
+      label: "App",
+    },
+    {
+      filter: "cat-two",
+      label: "Website",
+    },
+    {
+      filter: "cat-three",
+      label: "Landing Page",
+    },
+    {
+      filter: "cat-four",
+      label: "Branding-app",
+    },
+    {
+      filter: "cat-five",
+      label: "Product Design",
+    },
+  ];
+
+  const [selectedFilter, setSelectedFilter] = useState("*");
+  const [items, setItems] = useState(project_items);
+
+  const handleFilterChange = (filter) => {
+    const newItems = project_items.filter((el) =>
+      el.className.split(" ").includes(filter)
+    );
+    setSelectedFilter(filter);
+    setItems(filter === "*" ? project_items : newItems);
+  };
+
+  return (
+    <section className="project-area-two pt-110 pb-90">
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-xl-7 col-lg-9">
+            <div className="section-title title-style-two white-title mb-60 text-center">
+              <span className="sub-title">Portfolio</span>
+              <h2 className="title">Explore My Web3 Portfolio</h2>
+              <p>
+                Check out some of my recent projects in Web3 development and blockchain technology.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="project-item-wrap">
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="project-menu-nav">
+                {filters.map((x, index) => (
+                  <button
+                    key={index}
+                    className={x.filter === selectedFilter ? "active" : ""}
+                    data-filter={x.filter}
+                    onClick={() => handleFilterChange(x.filter)}
+                  >
+                    {x.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="row project-active-two">
+            {items.map((x, index) => (
+              <div
+                key={index}
+                className={cn(
+                  "col-lg-4 col-md-6 grid-item grid-sizer  wow fadeInUp",
+                  x.className
+                )}
+              >
+                <ProjectAreaTwoItem item={x} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="project-shape">
+        <img src="/img/project/h2_project_shape.png" alt="" />
+      </div>
+    </section>
+  );
+};
+
+export default ProjectAreaTwo;
